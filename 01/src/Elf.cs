@@ -8,7 +8,7 @@ public class Elf : IComparable<Elf>
 
   public int CompareTo(Elf? other)
   {
-    if (other == null)
+    if (other is null)
     {
       return 1;
     }
