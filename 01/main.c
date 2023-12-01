@@ -2,9 +2,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-ssize_t read_line(FILE *file, char **buffer, size_t buffer_size)
+ssize_t read_line(FILE *file, char **buffer, size_t *buffer_size)
 {
-  ssize_t bytes_read = getline(buffer, &buffer_size, file);
+  ssize_t bytes_read = getline(buffer, buffer_size, file);
 
   return bytes_read;
 }
@@ -46,11 +46,11 @@ int main()
   }
 
   char *line_buffer = NULL;
-  size_t line_buffer_initial_size = 0;
+  size_t line_buffer_size = 0;
 
   int sum = 0;
 
-  while (read_line(file, &line_buffer, line_buffer_initial_size) != -1)
+  while (read_line(file, &line_buffer, &line_buffer_size) != -1)
   {
     int calibration_value = parse_calibration_value(line_buffer);
 
