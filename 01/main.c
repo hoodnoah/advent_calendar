@@ -43,20 +43,20 @@ void replace_digit_word(char *buffer, ssize_t digit_word_index, struct digit_wor
   // digit_word_index represents the first character of the word. So replace that first letter with the digit.
   buffer[digit_word_index] = word->digit[0];
 
-  // Now shift the rest of the string left to remove the remaining characters of the word
-  size_t advance_index = digit_word_index + word->word_length;
-  size_t current_index = digit_word_index + 1;
+  // // Now shift the rest of the string left to remove the remaining characters of the word
+  // size_t advance_index = digit_word_index + word->word_length;
+  // size_t current_index = digit_word_index + 1;
 
-  while (buffer[advance_index] != '\0')
-  {
-    buffer[current_index] = buffer[advance_index];
+  // while (buffer[advance_index] != '\0')
+  // {
+  //   buffer[current_index] = buffer[advance_index];
 
-    advance_index++;
-    current_index++;
-  }
+  //   advance_index++;
+  //   current_index++;
+  // }
 
-  // Now move the null pointer
-  buffer[current_index] = '\0';
+  // // Now move the null pointer
+  // buffer[current_index] = '\0';
 }
 
 // algorithm:
@@ -109,53 +109,36 @@ int parse_calibration_value(char *input)
 
 int main()
 {
-  // const char *filename = "input.txt";
-  // FILE *file = fopen(filename, "r");
+  const char *filename = "input.txt";
+  FILE *file = fopen(filename, "r");
 
-  // if (!file)
-  // {
-  //   printf("Could not open file %s", filename);
-  //   return 1;
-  // }
+  if (!file)
+  {
+    printf("Could not open file %s", filename);
+    return 1;
+  }
 
-  // char *line_buffer = NULL;
-  // size_t line_buffer_size = 0;
+  char *line_buffer = NULL;
+  size_t line_buffer_size = 0;
 
-  // int non_replace_sum = 0;
-  // int replace_sum = 0;
+  int non_replace_sum = 0;
+  int replace_sum = 0;
 
-  // while (read_line(file, &line_buffer, &line_buffer_size) != -1)
-  // {
-  //   int non_replace_calibration_value = parse_calibration_value(line_buffer);
-  //   replace_digit_words(line_buffer, digit_words, 10);
-  //   int replace_calibration_value = parse_calibration_value(line_buffer);
+  while (read_line(file, &line_buffer, &line_buffer_size) != -1)
+  {
+    int non_replace_calibration_value = parse_calibration_value(line_buffer);
+    replace_digit_words(line_buffer, digit_words, 10);
+    int replace_calibration_value = parse_calibration_value(line_buffer);
 
-  //   non_replace_sum += non_replace_calibration_value;
-  //   replace_sum += replace_calibration_value;
-  // }
+    non_replace_sum += non_replace_calibration_value;
+    replace_sum += replace_calibration_value;
+  }
 
-  // printf("Sum w/out replacement: %i\n", non_replace_sum);
-  // printf("Sum w/ replacement   : %i\n", replace_sum);
+  printf("Sum w/out replacement: %i\n", non_replace_sum);
+  printf("Sum w/ replacement   : %i\n", replace_sum);
 
-  // free(line_buffer);
-  // fclose(file);
-
-  // char test_line[] = "two1nine";
-  // printf("Test line: %s\n", test_line);
-
-  // ssize_t location_of_first_word = locate_digit_word(test_line, &digit_words[2]);
-  // ssize_t location_of_last_word = locate_digit_word(test_line, &digit_words[9]);
-
-  // printf("Location of first digit word: %zu\n", location_of_first_word);
-  // printf("Location of last digit word: %zu\n", location_of_last_word);
-
-  // replace_digit_word(test_line, location_of_first_word, &digit_words[2]);
-
-  // printf("After replacing two: %s", test_line);
-
-  // replace_digit_word(test_line, location_of_last_word, &digit_words[9]);
-
-  // printf("After replacing nine: %s", test_line);
+  free(line_buffer);
+  fclose(file);
 
   return 0;
 }
