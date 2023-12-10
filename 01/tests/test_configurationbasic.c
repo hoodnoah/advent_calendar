@@ -1,9 +1,14 @@
 #include <stdlib.h>
 #include <check.h>
+#include "../include/Configuration.h"
 
-START_TEST(test_name)
+START_TEST(parses_first_configuration_correctly)
 {
-  ck_assert_int_eq(1, 1);
+  char *first_configuration = "1abc2";
+  int expected = 12;
+  int actual = parseConfigurationBasic(first_configuration);
+
+  ck_assert_int_eq(expected, actual);
 }
 END_TEST
 
@@ -17,7 +22,7 @@ Suite *suite_name(void)
   /* Core test case */
   tc_core = tcase_create("Core");
 
-  tcase_add_test(tc_core, test_name);
+  tcase_add_test(tc_core, parses_first_configuration_correctly);
   suite_add_tcase(s, tc_core);
 
   return s;

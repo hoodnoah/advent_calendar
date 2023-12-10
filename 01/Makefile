@@ -8,13 +8,14 @@ main:
 	mkdir -p ./bin
 	$(CC) ./src/main.c -o ./bin/main
 
-test:
-	mkdir -p ./bin/tests
-	$(CC) $(TEST_CFLAGS) -o ./bin/tests/test_configurationbasic ./tests/test_configurationbasic.c $(TEST_LIBS)
-	./bin/tests/test_configurationbasic
+configuration.o:
+	mkdir -p ./bin
+	$(CC) -c ./src/Configuration.c -o ./bin/Configuration.o
 
-echo:
-	echo $(brew --prefix check)
+test: configuration.o
+	mkdir -p ./bin
+	$(CC) $(TEST_CFLAGS) ./tests/test_configurationbasic.c ./bin/Configuration.o $(TEST_LIBS) -o ./bin/test
+	./bin/test
 
 clean:
 	rm -rf ./bin
