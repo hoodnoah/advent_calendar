@@ -12,6 +12,25 @@ START_TEST(parses_first_configuration_correctly)
 }
 END_TEST
 
+START_TEST(parses_first_part_example_correctly)
+{
+  char *first_configuration = "1abc2";
+  char *second_configuration = "pqr3stu8vwx";
+  char *third_configuration = "a1b2c3d4e5f";
+  char *fourth_configuration = "treb7uchet";
+
+  int first_result = parseConfigurationBasic(first_configuration);
+  int second_result = parseConfigurationBasic(second_configuration);
+  int third_result = parseConfigurationBasic(third_configuration);
+  int fourth_result = parseConfigurationBasic(fourth_configuration);
+
+  ck_assert_int_eq(12, first_result);
+  ck_assert_int_eq(38, second_result);
+  ck_assert_int_eq(15, third_result);
+  ck_assert_int_eq(77, fourth_result);
+  ck_assert_int_eq(142, first_result + second_result + third_result + fourth_result);
+}
+
 Suite *suite_name(void)
 {
   Suite *s;
@@ -23,6 +42,7 @@ Suite *suite_name(void)
   tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, parses_first_configuration_correctly);
+  tcase_add_test(tc_core, parses_first_part_example_correctly);
   suite_add_tcase(s, tc_core);
 
   return s;
