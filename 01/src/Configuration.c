@@ -1,5 +1,6 @@
-#include <stdlib.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 #include "../include/Configuration.h"
 
@@ -9,7 +10,7 @@ typedef struct ConfigurationValue
   size_t position;
 } ConfigurationValue;
 
-int parseConfigurationBasic(char *configuration)
+int parseConfiguration(char *configuration, bool includeLetters)
 {
   ConfigurationValue left = {'0', -1};
   ConfigurationValue right = {'0', -1};

@@ -1,8 +1,8 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-int parseConfigurationBasic(char *configuration);
+#include <stdbool.h>
 
-int parseConfigurationWithText(char *configuration);
+int parseConfiguration(char *configuration, bool includeLetters);
 
 #endif

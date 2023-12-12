@@ -1,28 +1,21 @@
-#include <stdlib.h>
 #include <check.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
 #include "../include/Configuration.h"
-
-START_TEST(parses_first_configuration_correctly)
-{
-  char *first_configuration = "1abc2";
-  int expected = 12;
-  int actual = parseConfigurationBasic(first_configuration);
-
-  ck_assert_int_eq(expected, actual);
-}
-END_TEST
 
 START_TEST(parses_first_part_example_correctly)
 {
+  bool includeLetters = false;
   char *first_configuration = "1abc2";
   char *second_configuration = "pqr3stu8vwx";
   char *third_configuration = "a1b2c3d4e5f";
   char *fourth_configuration = "treb7uchet";
 
-  int first_result = parseConfigurationBasic(first_configuration);
-  int second_result = parseConfigurationBasic(second_configuration);
-  int third_result = parseConfigurationBasic(third_configuration);
-  int fourth_result = parseConfigurationBasic(fourth_configuration);
+  int first_result = parseConfiguration(first_configuration, includeLetters);
+  int second_result = parseConfiguration(second_configuration, includeLetters);
+  int third_result = parseConfiguration(third_configuration, includeLetters);
+  int fourth_result = parseConfiguration(fourth_configuration, includeLetters);
 
   ck_assert_int_eq(12, first_result);
   ck_assert_int_eq(38, second_result);
@@ -41,7 +34,6 @@ Suite *suite_name(void)
   /* Core test case */
   tc_core = tcase_create("Core");
 
-  tcase_add_test(tc_core, parses_first_configuration_correctly);
   tcase_add_test(tc_core, parses_first_part_example_correctly);
   suite_add_tcase(s, tc_core);
 

@@ -14,7 +14,7 @@ configuration.o:
 
 test: configuration.o
 	mkdir -p ./bin
-	$(CC) $(TEST_CFLAGS) ./tests/test_configurationbasic.c ./bin/Configuration.o $(TEST_LIBS) -o ./bin/test
+	$(CC) $(TEST_CFLAGS) ./tests/test_parseConfiguration.c ./bin/Configuration.o $(TEST_LIBS) -o ./bin/test
 	./bin/test
 
 clean:
