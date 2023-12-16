@@ -24,6 +24,35 @@ START_TEST(parses_first_part_example_correctly)
   ck_assert_int_eq(142, first_result + second_result + third_result + fourth_result);
 }
 
+START_TEST(parses_second_part_example_correctly)
+{
+  bool includeLetters = true;
+  char *first_configuration = "two1nine";
+  char *second_configuration = "eightwothree";
+  char *third_configuration = "abcone2threexyz";
+  char *fourth_configuration = "xtwone3four";
+  char *fifth_configuration = "4nineeightseven2";
+  char *sixth_configuration = "zoneight234";
+  char *seventh_configuration = "7pqrstsixteen";
+
+  int first_result = parseConfiguration(first_configuration, includeLetters);
+  int second_result = parseConfiguration(second_configuration, includeLetters);
+  int third_result = parseConfiguration(third_configuration, includeLetters);
+  int fourth_result = parseConfiguration(fourth_configuration, includeLetters);
+  int fifth_result = parseConfiguration(fifth_configuration, includeLetters);
+  int sixth_result = parseConfiguration(sixth_configuration, includeLetters);
+  int seventh_result = parseConfiguration(seventh_configuration, includeLetters);
+
+  ck_assert_int_eq(29, first_result);
+  ck_assert_int_eq(83, second_result);
+  ck_assert_int_eq(13, third_result);
+  ck_assert_int_eq(24, fourth_result);
+  ck_assert_int_eq(42, fifth_result);
+  ck_assert_int_eq(14, sixth_result);
+  ck_assert_int_eq(76, seventh_result);
+  ck_assert_int_eq(281, first_result + second_result + third_result + fourth_result + fifth_result + sixth_result + seventh_result);
+}
+
 Suite *suite_name(void)
 {
   Suite *s;
@@ -35,6 +64,7 @@ Suite *suite_name(void)
   tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, parses_first_part_example_correctly);
+  tcase_add_test(tc_core, parses_second_part_example_correctly);
   suite_add_tcase(s, tc_core);
 
   return s;
