@@ -6,6 +6,7 @@ TEST_LIBS = -lcheck
 
 main:
 	mkdir -p ./bin
+	cp ./input.txt ./bin/input.txt
 	$(CC) ./src/main.c -o ./bin/main
 
 configuration.o:
@@ -23,6 +24,7 @@ test: test_configuration.o
 
 build_test: test_configuration.o
 	mkdir -p ./bin
+	cp ./input.txt ./bin/input.txt
 	$(CC) $(TEST_CFLAGS) ./tests/test_parseConfiguration.c ./bin/Configuration.o $(TEST_LIBS) -o ./bin/test
 
 clean:

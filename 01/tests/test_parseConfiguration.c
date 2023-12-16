@@ -1,8 +1,22 @@
 #include <check.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "../include/Configuration.h"
+
+// Reads a line of a given file
+void readFileLine(FILE *file, char **line)
+{
+  size_t len = 0;
+  ssize_t read;
+
+  read = getline(line, &len, file);
+  if (read == -1)
+  {
+    line = NULL;
+  }
+}
 
 START_TEST(parses_first_part_example_correctly)
 {
@@ -22,6 +36,24 @@ START_TEST(parses_first_part_example_correctly)
   ck_assert_int_eq(15, third_result);
   ck_assert_int_eq(77, fourth_result);
   ck_assert_int_eq(142, first_result + second_result + third_result + fourth_result);
+}
+
+START_TEST(passes_first_part_actual_correctly)
+{
+  FILE *file = fopen("./input.txt", "r");
+  char *line = NULL;
+
+  int result = 0;
+  while (line == NULL || line[0] != '\0')
+  {
+    readFileLine(file, &line);
+    result += parseConfiguration(line, false);
+  }
+
+  ck_assert_int_eq(55386, result);
+
+  free(line);
+  fclose(file);
 }
 
 START_TEST(parses_second_part_example_correctly)
@@ -64,6 +96,7 @@ Suite *suite_name(void)
   tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, parses_first_part_example_correctly);
+  tcase_add_test(tc_core, passes_first_part_actual_correctly);
   tcase_add_test(tc_core, parses_second_part_example_correctly);
   suite_add_tcase(s, tc_core);
 
