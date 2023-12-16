@@ -4,10 +4,13 @@ CHECK_PATH = $(shell brew --prefix check)
 TEST_CFLAGS = $(CFLAGS) -I"$(CHECK_PATH)/include" -L"$(CHECK_PATH)/lib" -g -O0
 TEST_LIBS = -lcheck
 
-main:
+run: main
+	./bin/main
+
+main: configuration.o
 	mkdir -p ./bin
 	cp ./input.txt ./bin/input.txt
-	$(CC) ./src/main.c -o ./bin/main
+	$(CC) ./src/main.c ./bin/Configuration.o -o ./bin/main
 
 configuration.o:
 	mkdir -p ./bin

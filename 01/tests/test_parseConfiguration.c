@@ -85,6 +85,38 @@ START_TEST(parses_second_part_example_correctly)
   ck_assert_int_eq(281, first_result + second_result + third_result + fourth_result + fifth_result + sixth_result + seventh_result);
 }
 
+START_TEST(second_part_regression_test)
+{
+  int incorrectResult = 54828;
+
+  FILE *file = fopen("./input.txt", "r");
+  char *line = NULL;
+
+  int result = 0;
+  while (line == NULL || line[0] != '\0')
+  {
+    readFileLine(file, &line);
+    result += parseConfiguration(line, true);
+  }
+
+  ck_assert_int_ne(incorrectResult, result);
+}
+
+START_TEST(parses_second_part_actual_correctly)
+{
+  FILE *file = fopen("./input.txt", "r");
+  char *line = NULL;
+
+  int result = 0;
+  while (line == NULL || line[0] != '\0')
+  {
+    readFileLine(file, &line);
+    result += parseConfiguration(line, true);
+  }
+
+  ck_assert_int_eq(54824, result);
+}
+
 Suite *suite_name(void)
 {
   Suite *s;
@@ -98,6 +130,7 @@ Suite *suite_name(void)
   tcase_add_test(tc_core, parses_first_part_example_correctly);
   tcase_add_test(tc_core, passes_first_part_actual_correctly);
   tcase_add_test(tc_core, parses_second_part_example_correctly);
+  tcase_add_test(tc_core, second_part_regression_test);
   suite_add_tcase(s, tc_core);
 
   return s;
